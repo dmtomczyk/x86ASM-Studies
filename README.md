@@ -2,6 +2,12 @@
 My studies of writing x86 assembly code.
 
 ## Steps to generate an executable from an asm file
+Example: 
+1. `nasm -f elf32 example01.asm -o example01.o`
+2. `ld -m elf_i386 example01.o -o example01`
+3. `./example01` (execute result)
+
+Steps Overview
 1. `nasm -f elf32 fileName.asm -o fileName.o`
     * The elf32 flag tells nasm to build a 32bit elf **object** file
     * elf = executable and linking format (used by linux)
@@ -14,6 +20,8 @@ My studies of writing x86 assembly code.
         * The elf_i386 flag specifies that it is an x86 program
 
 ## Helpful documentation
+0. http://spike.scu.edu.au/~barry/interrupts.html#ah01
+    * Overview of all DOS interrupts
 1. https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/x64-architecture
     * Lists the various registers available for 64, 32, 16, and 8 bit operations.
 2. https://softwareengineering.stackexchange.com/questions/379683/registers-and-stacks-in-nasm
@@ -33,7 +41,8 @@ My studies of writing x86 assembly code.
     - NOTE: Different than others. Multiplication is always applied to the `eax` register, so in this case, `mul ebx` would result in (eax * ebx).
 5. `div ebx` (Divide register into eax)
     - NOTE: Different than others. Division is also always applied to the `eax` register, so in this case, `div ebx` would result in (eax / ebx).
-6. `int` (Interrupt)
+6. `int 0x80` (Interrupt)
+    - NOTE: On Linux, `0x80` results in a system_call interrupt.
 
 ### Debugging
 1. `echo $?`
@@ -64,3 +73,9 @@ General Purpose Registers
 13. r13d
 14. r14d
 15. r15d
+
+### Pointers
+* `EIP` (Instruction Pointer)
+    * Location of execution.
+    * Not like a register.
+    * Changed by `jmp` operations.

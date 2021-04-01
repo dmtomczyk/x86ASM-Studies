@@ -1,2 +1,5 @@
 # Ignore the output of nasm calls
 *.o
+
+# Ignore the builds
+*/bin
